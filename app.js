@@ -29,8 +29,27 @@ class Chain {
         this.joints[0] = { ...pos };
 
         for (let i = 1; i < this.joints.length; i++) {
+            this.joints[i] = this.constrainDistance(this.joints[i], this.joints[i - 1], this.linkSize);
         }
     }
+
+    constrainDistance(pos, anchor, constraint) {
+        // Calculate the difference vector from anchor to pos
+        const dx = pos.x - anchor.x;
+        const dy = pos.y - anchor.y;
+
+        // Calculate the current distance
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Scale the vector to the specified constraint distance
+        const scale = constraint / distance;
+
+        return {
+            x: anchor.x + dx * scale,
+            y: anchor.y + dy * scale,
+        };
+    }
+
 }
 
 
