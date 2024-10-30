@@ -33,11 +33,21 @@ class Vector {
 }
 
 class Chain {
-    constructor(originPos, joinCount, linkSize, ctx) {
+    constructor(originPos, joinCount, linkSize, ctx, style = {
+        chain: {
+            lineWidth: 5,
+            color: "black",
+        },
+        joint: {
+            color: 'red',
+            lineWidth: 1,
+        }
+    }) {
         if (joinCount < 1) {
             throw new Error('Join count must be greater than 1');
         }
 
+        this.style = style;
         this.angels = [];
         this.linkSize = linkSize;
         this.ctx = ctx;
@@ -46,6 +56,8 @@ class Chain {
 
     display() {
         const ctx = this.ctx;
+        const linkStyle = this.style.chain;
+        ctx.lineWidth = linkStyle.lineWidth;
         // drawing the line link
         for (let i = 1; i < this.joints.length; i++) {
             ctx.beginPath();
@@ -55,9 +67,13 @@ class Chain {
         }
 
         // drawing the joints
+        const jointStyle = this.style.joint;
+        ctx.fillStyle = jointStyle.color;
+        ctx.lineWidth = jointStyle.lineWidth;
         for (const joint of this.joints) {
             ctx.beginPath();
-            ctx.arc(joint.x, joint.y, 1, 0, Math.PI * 2);
+            ctx.arc(joint.x, joint.y, 3, 0, Math.PI * 2);
+            ctx.fill();
             ctx.stroke();
         }
     }
@@ -84,7 +100,7 @@ canvas.height = window.innerHeight;
 const ctx = canvas.getContext('2d');
 
 const origin = new Vector(canvas.width / 2, canvas.height / 2);
-const chain = new Chain(origin, 5, 25, ctx);
+const chain = new Chain(origin, 10, 20, ctx);
 
 canvas.addEventListener('mousemove', (e) => {
     const boundingRect = canvas.getBoundingClientRect();
