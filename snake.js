@@ -63,28 +63,6 @@ class Snake {
         // === END EYES ===
     }
 
-    displayDebug() {
-        this.spine.display();
-
-        ctx.fillStyle = 'red';
-
-        const angleOffset = Math.PI / 2;
-        const bodyWidth = 30
-        for (let i = 0; i < this.spine.joints.length; i++) {
-            ctx.beginPath();
-            const x = this.getPosX(i, angleOffset, 0);
-            const y = this.getPosY(i, angleOffset, 0);
-            ctx.beginPath();
-            ctx.arc(x, y, 3, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.beginPath();
-            const joint = this.spine.joints[i];
-            ctx.arc(joint.x, joint.y, this.bodyWidth(i), 0, Math.PI * 2);
-            ctx.stroke();
-        }
-    }
-
     getPosX(i, angleOffset, lengthOffset) {
         return this.spine.joints[i].x + Math.cos(this.spine.angles[i] + angleOffset) * (this.bodyWidth(i) + lengthOffset)
 
