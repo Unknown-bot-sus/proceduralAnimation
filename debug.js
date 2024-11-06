@@ -25,7 +25,6 @@ class Debug extends Snake {
             const joint = this.spine.joints[i];
             ctx.arc(joint.x, joint.y, this.bodyWidth(i), 0, Math.PI * 2);
             ctx.stroke();
-
         }
     }
 }
