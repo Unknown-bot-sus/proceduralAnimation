@@ -5,7 +5,7 @@ class Snake {
 
     display() {
         ctx.lineWidth = 4;
-        ctx.strokeStyle = 'white';
+        ctx.strokeStyle = 'black';
         ctx.fillStyle = 'rgb(172, 57, 49)';
 
         // === START BODY ===
@@ -48,7 +48,6 @@ class Snake {
             this.getPosX(2, Math.PI / 2, 0), this.getPosY(2, Math.PI / 2, 0)
         );
 
-        ctx.closePath();
         ctx.fill();
         ctx.stroke();
         // === END BODY ===
